@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气展示</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}"> <!--引入css文件-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" /><!--引入地图-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- 标题栏 -->
+    <header class="title-bar">
+        <h1>天气展示</h1>
+
+        <div class="location-select">
+        <select id="province" name="province">
+            <option selected disabled>请选择省份</option>
+        </select>
+
+        <select id="city" name="city">
+            <option selected disabled>请选择城市</option>
+        </select>
+
+        <script src="{{ url_for("static",filename="js/citys.js") }}"></script>
+            <!-- 将默认省市值传递给前端 -->
+        <script>
+            const defaultProvince = "{{ default_province }}";
+            const defaultCity = "{{ default_city }}";
+            const year = {{ year }}
+        </script>
+        </div>
+
+    </header>
+    
+    <nav class="navbar">
+        <ul class="navbar-menu">
+            <li><a href="/">天气信息</a></li>
+            <li><a href="/weather_detail?adcode=110000">天气预报</a></li>
+            <li><a href="/admin">管理员</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- 地图展示模块 -->
+        <div class="map-module">
+            <!-- 地图展示区 -->
+            <div id="map"></div>
+        </div>
+        
+        <!-- 折线图展示模块 -->
+        <div class="chart-module line-chart">
+            <h2>气温变化</h2>
+            <canvas  id="lineChart"></canvas >
+        </div>
+
+        <!-- 环形图展示模块 -->
+        <div class="chart-module pie-chart">
+            <h2>天气情况</h2>
+            <canvas  id="pieChart"></canvas >
+        </div>
+
+        <!-- 柱状图展示模块 -->
+        <div class="chart-module bar-chart">
+            <h2>空气质量</h2>
+            <canvas  id="barChart"></canvas >
+        </div>
+
+
+         <!-- 极端天气预警信号 -->
+        <div class="button-module">
+{#为每个按钮生成一个 warning_id，并将这个 ID 传递给 URL 中的 warning_id 参数。#}
+{#这个 warning_id 将用于在 Flask 视图函数中识别哪个预警信息被点击，以便在新页面中显示相应的详细信息#}
+
+             <h2>预警信息</h2>
+            {% for warning in warnings %}
+                <button
+                     onclick="location.href='/warning_detail/{{ warning.id }}'"
+                    style="background-color: {{ warning.color }}; color: gray;">
+                    {{ warning.title }}
+                </button>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="{{ url_for("static",filename="js/map.js") }}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for("static",filename="js/charts.js") }}"></script>
+
+
+    
+</body>
+</html>

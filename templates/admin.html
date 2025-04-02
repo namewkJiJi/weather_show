@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理界面</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+
+<body>
+    <!-- 标题栏 -->
+    <header class="title-bar">
+        <h1>数据库管理</h1>
+    </header>
+
+    <div>
+        <button class="btn btn-add" onclick="addData()">添加数据</button>
+        <button class="btn btn-edit" onclick="updateData()">修改数据</button>
+        <button class="btn btn-delete" onclick="deleteData()">删除数据</button>
+    </div>
+
+    <table class="adminusertable">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>温度</th>
+                <th>空气质量</th>
+                <th>多云</th>
+                <th>晴</th>
+                <th>沙尘</th>
+                <th>雨</th>
+                <th>雪</th>
+                <th>阴</th>
+                <th>城市</th>
+                <th>月</th>
+                <th>年</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in datas %}
+            <tr>
+                <td ondblclick="makeEditable(this, '{{ data.id }}', 'id')">{{ data.id }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.temp }}', 'temp')">{{ data.temp }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.aireaq }}', 'aireaq')">{{ data.aireaq }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.dy }}', 'dy')">{{ data.dy }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.qing }}', 'qing')">{{ data.qing }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.hc }}', 'hc')">{{ data.hc }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.xue }}', 'xue')">{{ data.xue }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.yu }}', 'yu')">{{ data.yu }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.yin }}', 'yin')">{{ data.yin }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.city }}', 'city')">{{ data.city }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.month }}', 'month')">{{ data.month }}</td>
+                <td ondblclick="makeEditable(this, '{{ data.year }}', 'year')">{{ data.year }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- 模态框：添加/修改数据 -->
+    <!-- 背景遮罩 -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<!-- 表单 -->
+<div class="add" id="dataModel" style="display:none;">
+    <form id="dataForm" action="" method="POST">
+        <label for="temp">温度:</label>
+        <input type="text" id="temp" name="temp" required>
+        <label for="aireaq">空气质量:</label>
+        <input type="text" id="aireaq" name="aireaq" required>
+        <label for="dy">多云:</label>
+        <input type="text" id="dy" name="dy" required>
+        <label for="qing">晴:</label>
+        <input type="text" id="qing" name="qing" required>
+        <label for="hc">沙尘:</label>
+        <input type="text" id="hc" name="hc" required>
+        <label for="xue">雪:</label>
+        <input type="text" id="xue" name="xue" required>
+        <label for="yu">雨:</label>
+        <input type="text" id="yu" name="yu" required>
+        <label for="yin">阴:</label>
+        <input type="text" id="yin" name="yin" required>
+        <label for="city">城市:</label>
+        <input type="text" id="city" name="city" required>
+        <label for="month">月:</label>
+        <input type="text" id="month" name="month" required>
+        <label for="year">年:</label>
+        <input type="text" id="year" name="year" required>
+
+        <button type="submit"()>提交</button>
+        <button type="button" onclick="closeModal()">取消</button>
+    </form>
+</div>
+
+  <script src="{{ url_for("static",filename="js/admin.js") }}"></script>
+
+</body>
+</html>

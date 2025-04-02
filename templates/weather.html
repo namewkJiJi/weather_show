@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七天天气预报</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/weather.css') }}">
+</head>
+<body>
+    <!-- 标题栏 -->
+    <header class="title-bar">
+        <h1>天气展示</h1>
+
+        <div class="location-select">
+        <select id="province" name="province">
+            <option selected disabled>请选择省份</option>
+        </select>
+
+        <select id="city" name="city">
+            <option selected disabled>请选择城市</option>
+        </select>
+
+        <script src="{{ url_for("static",filename="js/citys.js") }}"></script>
+            <!-- 将默认省市值传递给前端 -->
+        <script>
+            const defaultProvince = "{{ info.pro_name }}";
+            const defaultCity = "{{ info.city_name }}";
+        </script>
+        </div>
+
+    </header>
+
+    <nav class="navbar">
+        <ul class="navbar-menu">
+            <li><a href="/">天气信息</a></li>
+            <li><a href="/weather_detail?adcode=110000">天气预报</a></li>
+            <li><a href="/admin">管理员</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" >
+        <p>未来{{ days }}天天气预报</p>
+        <!-- 第一行：一天的天气预报框 -->
+        <div class="forecast-row top-row">
+            <div id="day1-box" class="forecast-box">
+                <!-- 第一天的天气预报内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 第二行：多天天的天气预报框 -->
+        <div class="forecast-row scroll-container" id="forecast-row">
+            <!-- 天气预报框将通过JavaScript动态生成 -->
+        </div>
+
+        <!-- 第三行：降雨量折线图 -->
+        <p>未来七天气温走向</p>
+        <div class="chart-row">
+            <canvas id="rainfallChart"></canvas>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for("static",filename="js/weather.js") }}"></script>
+
+
+</body>
+</html>
+
+
+
+

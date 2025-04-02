@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{ warning.typeName }}预警</title>
+    <style>
+        body {
+            background-color: {{ warning.color }};
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        .warning-details {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            font-size: 14px;
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon-container">
+                 <img src="{{ url_for('static', filename='src/icons/' + warning.type + '.svg') }}" alt="icon" class="icon">
+        </div>
+        <div class="warning-details">
+            <div class="title">{{ warning.title }}</div>
+            <div class="content">{{ warning.text }}</div>
+            <div class="footer">发布单位：{{ warning.sender }}<br>发布时间：{{ warning.pubTime }}</div>
+        </div>
+    </div>
+</body>
+</html>
